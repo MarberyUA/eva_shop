@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -58,6 +59,13 @@ public class AuthenticationController {
             role.setRoleName(roleName);
             roleService.create(role);
         }
+        User admin = new User();
+        Role role = roleService.findByRoleName(Role.RoleName.ADMIN);
+        admin.setRoles(Set.of(role));
+        admin.setPassword("admin");
+        admin.setUsername("admin");
+        admin.setEmail("fakeadminemail@gmail.com");
+        authenticationService.register(admin);
     }
 
     @PostMapping

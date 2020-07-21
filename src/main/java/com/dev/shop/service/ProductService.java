@@ -8,4 +8,8 @@ public interface ProductService {
     Product create(Product product);
 
     List<Product> findByNameRegex(String regex);
+
+    Product findById(Long id);
+
+    void delete(Product product);
 }

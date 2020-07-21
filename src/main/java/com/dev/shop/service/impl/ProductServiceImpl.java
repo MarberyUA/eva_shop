@@ -26,4 +26,14 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findByNameRegex(String regex) {
         return productRepository.findByNameRegex(regex);
     }
+
+    @Override
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public void delete(Product product) {
+        productRepository.delete(product);
+    }
 }
