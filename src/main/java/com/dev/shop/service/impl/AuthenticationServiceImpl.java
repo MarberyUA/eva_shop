@@ -6,6 +6,7 @@ import com.dev.shop.model.User;
 import com.dev.shop.service.AuthenticationService;
 import com.dev.shop.service.RoleService;
 import com.dev.shop.service.UserService;
+import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +31,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public User register(User user) {
         user.setStatus(Status.ACTIVE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Set.of(roleService.findByRoleName(Role.RoleName.USER)));
+        Set<Role> roles = new HashSet<>();
+        user.getRoles().forEach(role -> roles.add(role));
+        roles.add(roleService.findByRoleName(Role.RoleName.USER));
+        user.setRoles(roles);
         return userService.create(user);
     }
 }
