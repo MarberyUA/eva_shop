@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/shop/products")
 public class ProductController {
     private final Logger logger = LogManager.getLogger(ProductController.class);
     private ProductService productService;
@@ -48,7 +48,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> get(@RequestParam String regex) {
-        return productService.findByNameRegex(regex);
+    public List<Product> get(@RequestParam String nameFilter) {
+        return productService.findByNameRegex(nameFilter);
     }
 }
