@@ -6,6 +6,8 @@ import com.dev.shop.service.DataReaderService;
 import com.dev.shop.service.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.PostConstruct;
-import java.util.List;
 
 @RestController
 @RequestMapping("/shop/products")
@@ -32,7 +31,8 @@ public class ProductController {
 
     @PostConstruct
     public void init() {
-        List<ProductRequestDto> list = dataReaderService.getDataFromFile("src/main/resources/products.txt");
+        List<ProductRequestDto> list = dataReaderService
+                .getDataFromFile("src/main/resources/products.txt");
         ObjectMapper objectMapper = new ObjectMapper();
         for (ProductRequestDto dto : list) {
             try {

@@ -10,6 +10,9 @@ import com.dev.shop.service.RoleService;
 import com.dev.shop.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/")
@@ -74,7 +73,7 @@ public class AuthenticationController {
             }
             String token = jwtTokenProvider.createToken(username, user.getRoles());
             Map<Object, Object> response = new HashMap<>();
-            response.put("username" , username);
+            response.put("username", username);
             response.put("token", token);
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {

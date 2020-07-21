@@ -1,7 +1,6 @@
 package com.dev.shop.service;
 
 import com.dev.shop.model.Product;
-
 import java.util.List;
 
 public interface ProductService {

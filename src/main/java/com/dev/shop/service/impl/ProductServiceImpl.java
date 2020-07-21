@@ -3,10 +3,9 @@ package com.dev.shop.service.impl;
 import com.dev.shop.model.Product;
 import com.dev.shop.repository.ProductRepository;
 import com.dev.shop.service.ProductService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
