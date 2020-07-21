@@ -1,10 +1,10 @@
 package com.dev.shop.dto;
 
 import com.dev.shop.lib.EmailConstraint;
-import lombok.Getter;
-import lombok.Setter;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
