@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +71,7 @@ public class AuthenticationController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> login(@RequestBody AuthenticationLoginRequestDto dto) {
+    public ResponseEntity<Object> login(@Valid @RequestBody AuthenticationLoginRequestDto dto) {
         try {
             String username = dto.getUsername();
             authenticationManager.authenticate(
@@ -92,7 +94,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@RequestBody AuthenticationRegisterRequestDto
+    public ResponseEntity<Object> register(@Valid @RequestBody AuthenticationRegisterRequestDto
                                            dto) {
         ObjectMapper objectMapper = new ObjectMapper();
         User user;

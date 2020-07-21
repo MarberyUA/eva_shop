@@ -32,7 +32,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setStatus(Status.ACTIVE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
-        user.getRoles().forEach(role -> roles.add(role));
+        if (user.getRoles() != null) {
+            user.getRoles().forEach(role -> roles.add(role));
+        }
         roles.add(roleService.findByRoleName(Role.RoleName.USER));
         user.setRoles(roles);
         return userService.create(user);
