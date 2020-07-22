@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,7 +51,7 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody ProductRequestDto dto) {
+    public ResponseEntity<Object> create(@Valid @RequestBody ProductRequestDto dto) {
         Product pr = productService.create(productMapper.mapDtoToProduct(dto));
         Map<Object, Object> body = new HashMap<>();
         body.put("message", "Product was created successfully!");
@@ -59,10 +60,10 @@ public class ProductController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestParam String id,
-                                         @RequestBody ProductRequestDto dto) {
+    public ResponseEntity<Object> update(@RequestParam Long id,
+                                          @Valid @RequestBody ProductRequestDto dto) {
         Product pr = productMapper.mapDtoToProduct(dto);
-        Product productFoundById = productService.findById(Long.parseLong(id));
+        Product productFoundById = productService.findById(id);
         productFoundById.setName(pr.getName());
         productFoundById.setDescription(pr.getDescription());
         productService.create(productFoundById);
@@ -72,8 +73,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> delete(@RequestParam String id) {
-        productService.delete(productService.findById(Long.parseLong(id)));
+    public ResponseEntity<Object> delete(@RequestParam Long id) {
+        productService.delete(productService.findById(id));
         Map<Object, Object> body = new HashMap<>();
         body.put("message", "product was deleted successfully!");
         return ResponseEntity.ok(body);
