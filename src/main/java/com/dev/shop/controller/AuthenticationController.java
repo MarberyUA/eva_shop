@@ -62,7 +62,9 @@ public class AuthenticationController {
         }
         User admin = new User();
         Role role = roleService.findByRoleName(Role.RoleName.ADMIN);
-        admin.setRoles(Set.of(role));
+        if (role != null) {
+            admin.setRoles(Set.of(role));
+        }
         admin.setPassword("admin");
         admin.setUsername("admin");
         admin.setEmail("fakeadminemail@gmail.com");
@@ -73,8 +75,9 @@ public class AuthenticationController {
     public ResponseEntity<Object> login(@Valid @RequestBody AuthenticationLoginRequestDto dto) {
         try {
             String username = dto.getUsername();
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, dto.getPassword()));
+            authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(username,
+                            dto.getPassword()));
             User user = userService.findByUsername(username);
             if (user == null) {
                 logger.info("User with such username: " + username + " was not found!");

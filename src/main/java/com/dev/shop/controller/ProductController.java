@@ -8,7 +8,6 @@ import com.dev.shop.service.ProductService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,15 +33,6 @@ public class ProductController {
         this.dataReaderService = dataReaderService;
         this.productService = productService;
         this.productMapper = productMapper;
-    }
-
-    @PostConstruct
-    public void init() {
-        List<ProductRequestDto> list = dataReaderService
-                .getDataFromFile("src/main/resources/products.txt");
-        for (ProductRequestDto dto : list) {
-            productService.create(productMapper.mapDtoToProduct(dto));
-        }
     }
 
     @GetMapping
